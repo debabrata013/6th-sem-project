@@ -1,4 +1,4 @@
-package com.linkmatrix.link_matrix_spring;
+package com.linkmatrix.link_matrix_spring.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
