@@ -23,6 +23,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String role;
 
     // Profile Information
     private String profilePicture; // URL or file path
