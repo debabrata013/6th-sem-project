@@ -9,21 +9,12 @@ import {
   LogOut,
   ChevronRight,
   BarChart2,
-  BarChart,
 } from 'lucide-react';
 import type { RootState } from '../../store';
 
 const mockMetrics = {
   totalUsers: 1234,
   activeSessions: 567,
-  followers: 128420,
-  likes: 66816,
-  clickThroughRate: 2420,
-  audienceGrowth: [
-    { month: 'Jan', value: 20000 },
-    { month: 'Feb', value: 42000 },
-    { month: 'Mar', value: 60000 },
-  ],
   recentActivities: [
     {
       id: '1',
@@ -107,22 +98,28 @@ export default function AdminDashboard() {
 
       {/* Main content */}
       <div className="ml-64 p-8">
-        <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 mb-6 lg:grid-cols-3">
           <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
-            <div className="text-sm font-medium text-gray-500 truncate">Followers</div>
-            <div className="mt-1 text-3xl font-semibold text-gray-900">{mockMetrics.followers}</div>
+            <div className="text-sm font-medium text-gray-500 truncate">
+              Total Users
+            </div>
+            <div className="mt-1 text-3xl font-semibold text-gray-900">
+              {mockMetrics.totalUsers}
+            </div>
           </div>
           <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
-            <div className="text-sm font-medium text-gray-500 truncate">Likes</div>
-            <div className="mt-1 text-3xl font-semibold text-gray-900">{mockMetrics.likes}</div>
+            <div className="text-sm font-medium text-gray-500 truncate">
+              Active Sessions
+            </div>
+            <div className="mt-1 text-3xl font-semibold text-gray-900">
+              {mockMetrics.activeSessions}
+            </div>
           </div>
           <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
-            <div className="text-sm font-medium text-gray-500 truncate">Click-through rate (CTR)</div>
-            <div className="mt-1 text-3xl font-semibold text-gray-900">{mockMetrics.clickThroughRate}</div>
-          </div>
-          <div className="w-full px-4 py-5 bg-white rounded-lg shadow">
-            <div className="text-sm font-medium text-gray-500 truncate">Audience Growth</div>
-            <div className="mt-1 text-3xl font-semibold text-gray-900">42.4k</div>
+            <div className="text-sm font-medium text-gray-500 truncate">
+              Password Reset Requests
+            </div>
+            <div className="mt-1 text-3xl font-semibold text-gray-900">12</div>
           </div>
         </div>
 
