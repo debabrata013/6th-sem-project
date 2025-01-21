@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +16,13 @@ import com.linkmatrix.link_matrix_spring.Model.User;
 import com.linkmatrix.link_matrix_spring.Repo.UserRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/store")
+    @PostMapping("/signup")
     public ResponseEntity<String> saveUser(@RequestBody User user){
         userRepository.save(user);
         System.out.println("User saved: " + user.getUsername());

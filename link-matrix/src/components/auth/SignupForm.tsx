@@ -15,16 +15,40 @@ export default function SignupForm() {
     password: '',
     firstName: '',
     lastName: '',
-    role: 'user' as const,
+    role: 'user' as 'user' | 'mentor' | 'alumni',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Dispatch signup action
       await dispatch(signup(formData)).unwrap();
-      navigate('/dashboard');
+
+      // Send data to /signin endpoint
+      const response = await fetch('http://localhost:8080/api/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.email, // Assuming email is used as username
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          role: formData.role,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log('Sign-in successful:', result);
+        navigate('/dashboard');
+      } else {
+        console.error('Sign-in failed:', result);
+      }
     } catch (err) {
       // Error is handled by the reducer
+      console.error('Error during signup or sign-in:', err);
     }
   };
 
