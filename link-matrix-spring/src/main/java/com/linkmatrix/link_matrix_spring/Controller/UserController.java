@@ -1,7 +1,11 @@
 package com.linkmatrix.link_matrix_spring.Controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +23,41 @@ public class UserController {
     @PostMapping("/store")
     public ResponseEntity<String> saveUser(@RequestBody User user){
         userRepository.save(user);
-        return ResponseEntity.ok("User saved succesfully");
+        System.out.println("User saved: " + user.getUsername());
+        return ResponseEntity.ok("User saved successfully");
     }
-    
- 
 
+    @GetMapping("/show")
+    public List<User> show_user(){
+        return userRepository.findAll();
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<String> signIn(@RequestBody SignInRequest signInRequest) {
+        try {
+          
+            // Check for null values
+            if (signInRequest.getUsername() == null || signInRequest.getPassword() == null) {
+                return ResponseEntity.status(400).body("Username and password must not be null");
+            }
+
+            // Find user by username
+            Optional<User> foundUser = userRepository.findByUsername(signInRequest.getUsername());
+            if (foundUser.isPresent()) {
+                User user = foundUser.get();
+            
+                if (user.getPassword().equals(signInRequest.getPassword())) {
+                    return ResponseEntity.ok("Sign-in successful");
+                } else {
+                    return ResponseEntity.status(401).body("Invalid username or password");
+                }
+            } else {
+                return ResponseEntity.status(401).body("Invalid username or password");
+            }
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
 }
