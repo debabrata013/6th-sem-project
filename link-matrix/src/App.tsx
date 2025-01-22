@@ -9,6 +9,7 @@ import ResetPasswordForm from './components/auth/ResetPasswordForm';
 import AdminDashboard from './components/dashboard/AdminDashboard';
 import UserDashboard from './components/dashboard/UserDashboard';
 import ProtectedRoute from './components/layout/ProtectedRoute';
+import SupperAdmin from './components/dashboard/SupperAdmin';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
             <Route path="/reset-password" element={<ResetPasswordForm />} />
             <Route path ="/ad"  element={<AdminDashboard/>}/>
+            <Route path ="/sad"  element={<SupperAdmin/>}/>
             <Route
               path="/admin"
               element={
