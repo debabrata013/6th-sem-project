@@ -1,8 +1,9 @@
 export interface User {
-  id: string;
+  // id: string;
   email: string;
   firstName: string;
   lastName: string;
+  name: string;
   role: 'user' | 'mentor' | 'alumni' | 'admin';
   avatar?: string;
   title?: string;
@@ -10,6 +11,16 @@ export interface User {
   lastLogin?: string;
   createdAt: string;
   status: 'active' | 'inactive' | 'suspended';
+  college?: string;
+  department?: string;
+  yearOfEnrollment?: number;
+  yearOfGraduation?: number;
+  degree?: string;
+  designation?: string;
+  industry?: string;
+  yearsOfExperience?: number;
+  linkedInProfile?: string;
+  skills?: string[];
 }
 
 export interface AuthState {
@@ -23,7 +34,6 @@ export interface AuthState {
 export interface LoginCredentials {
   email: string;
   password: string;
-  rememberMe?: boolean;
 }
 
 export interface SignupData {
@@ -31,7 +41,19 @@ export interface SignupData {
   password: string;
   firstName: string;
   lastName: string;
+  name:string;
   role: 'user' | 'mentor' | 'alumni';
+  college?: string;
+  department?: string;
+  yearOfEnrollment?: number;
+  yearOfGraduation?: number;
+  degree?: string;
+  company?: string;
+  designation?: string;
+  industry?: string;
+  yearsOfExperience?: number;
+  linkedInProfile?: string;
+  skills?: string[];
 }
 
 export interface PasswordResetRequest {
