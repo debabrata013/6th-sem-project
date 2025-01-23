@@ -10,6 +10,7 @@ import AdminDashboard from './components/dashboard/AdminDashboard';
 import UserDashboard from './components/dashboard/UserDashboard';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import SupperAdmin from './components/dashboard/SupperAdmin';
+import University from './components/dashboard/UniversiySA';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordForm />} />
             <Route path ="/ad"  element={<AdminDashboard/>}/>
             <Route path ="/sad"  element={<SupperAdmin/>}/>
+            <Route path ="admin/universities"  element={<University/>}/>
+            
             <Route
               path="/admin"
               element={
