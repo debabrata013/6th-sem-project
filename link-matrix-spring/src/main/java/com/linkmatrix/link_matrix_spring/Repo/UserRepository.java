@@ -11,6 +11,7 @@ import com.linkmatrix.link_matrix_spring.Model.User;
 public interface UserRepository extends MongoRepository<User, String> {
 
     Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
     // public User findByEmail(String email);
 
 }

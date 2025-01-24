@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<String> saveUser(@RequestBody User user){
         userRepository.save(user);
         System.out.println("User saved: " + user.getUsername());
-        return ResponseEntity.ok("User saved successfully");
+        return ResponseEntity.ok("User saved: " + user.getUsername());
     }
 
     @GetMapping("/show")
@@ -39,12 +39,12 @@ public class UserController {
         try {
           
             // Check for null values
-            if (signInRequest.getUsername() == null || signInRequest.getPassword() == null) {
+            if (signInRequest.getEmail() == null || signInRequest.getPassword() == null) {
                 return ResponseEntity.status(400).body("Username and password must not be null");
             }
 
             // Find user by username
-            Optional<User> foundUser = userRepository.findByUsername(signInRequest.getUsername());
+            Optional<User> foundUser = userRepository.findByEmail(signInRequest.getEmail());
             if (foundUser.isPresent()) {
                 User user = foundUser.get();
             

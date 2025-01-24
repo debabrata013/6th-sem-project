@@ -13,7 +13,7 @@ const initialState: AuthState = {
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials: LoginCredentials) => {
-    const response = await axios.post('/auth/login', credentials);
+    const response = await axios.post('http://localhost:8080/api/user/signin', credentials);
     return response.data;
   }
 );
