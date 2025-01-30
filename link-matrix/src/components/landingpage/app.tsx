@@ -2,6 +2,8 @@ import React from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
+import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
+
 // Define props for animated components
 interface AnimatedTextProps {
   text: string;
@@ -67,22 +69,25 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({ number, className }) =>
       {number}
     </motion.span>
   );
-};
-
-// Testimonial Component
+};// Testimonial Component
 const Testimonial: React.FC<{ name: string; role: string; testimonial: string }> = ({ name, role, testimonial }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+      className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow border border-gray-200"
     >
-      <p className="text-gray-700 italic">"{testimonial}"</p>
-      <div className="mt-4">
-        <p className="font-bold text-blue-900">{name}</p>
-        <p className="text-sm text-gray-600">{role}</p>
+      <div className="flex items-center space-x-4">
+        <div className="w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold">
+          {name[0]}
+        </div>
+        <div>
+          <p className="font-bold text-blue-900">{name}</p>
+          <p className="text-sm text-gray-600">{role}</p>
+        </div>
       </div>
+      <p className="text-gray-700 italic mt-4 border-l-4 border-blue-500 pl-4">"{testimonial}"</p>
     </motion.div>
   );
 };
@@ -94,28 +99,28 @@ const ContactForm: React.FC = () => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white p-8 rounded-lg shadow-lg"
+      className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 w-full max-w-lg mx-auto"
     >
-      <h3 className="text-2xl font-bold text-blue-900 mb-6">Contact Us</h3>
+      <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">Contact Us</h3>
       <div className="space-y-4">
         <input
           type="text"
           placeholder="Your Name"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
         />
         <input
           type="email"
           placeholder="Your Email"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
         />
         <textarea
           placeholder="Your Message"
           rows={4}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-lg hover:shadow-lg hover:from-blue-700 hover:to-blue-600 transition-all"
         >
           Send Message
         </button>
@@ -129,7 +134,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-blue-900 text-white py-12">
       <div className="container mx-auto text-center">
-        <p className="text-lg">&copy; 2023 Linked Matrix. All rights reserved.</p>
+        <p className="text-lg">&copy; 2024 Linked Matrix. All rights reserved.</p>
         <div className="mt-4 space-x-6">
           <a href="#" className="hover:text-blue-300 transition-colors">
             Privacy Policy
@@ -139,6 +144,17 @@ const Footer: React.FC = () => {
           </a>
           <a href="#" className="hover:text-blue-300 transition-colors">
             Contact Us
+          </a>
+        </div>
+        <div className="mt-6 flex justify-center space-x-4">
+          <a href="#" className="text-xl hover:text-blue-300 transition-all">
+            <FaFacebook />
+          </a>
+          <a href="#" className="text-xl hover:text-blue-300 transition-all">
+            <FaTwitter />
+          </a>
+          <a href="#" className="text-xl hover:text-blue-300 transition-all">
+            <FaLinkedin />
           </a>
         </div>
       </div>
