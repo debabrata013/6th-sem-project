@@ -13,7 +13,7 @@ const initialState: AuthState = {
 export const login = createAsyncThunk(
   'auth/login',
   async (credentials: LoginCredentials) => {
-    const response = await axios.post('/auth/login', credentials);
+    const response = await axios.post('http://localhost:8080/api/user/signin', credentials);
     return response.data;
   }
 );
@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
 export const signup = createAsyncThunk(
   'auth/signup',
   async (data: SignupData) => {
-    const response = await axios.post('/auth/signup', data);
+    const response = await axios.post('http://localhost:8080/api/user/signup', data);
     return response.data;
   }
 );
