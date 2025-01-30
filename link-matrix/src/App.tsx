@@ -11,6 +11,7 @@ import UserDashboard from './components/dashboard/UserDashboard';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import SupperAdmin from './components/dashboard/SupperAdmin';
 import University from './components/dashboard/UniversiySA';
+import LandingPage from './components/landingpage/app';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <Router>
           <Routes>
+
+            <Route path="/landingpage" element={<LandingPage />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
