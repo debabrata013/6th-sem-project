@@ -1,10 +1,64 @@
-import React from 'react';
-import { motion, useAnimation } from 'framer-motion';
+
+import React, { useEffect, useState } from 'react';
+import { motion,useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { FaFacebook, FaTwitter, FaLinkedin, FaRegHandshake, FaUserGraduate, FaUniversity, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { IoMailOpen, IoPeopleCircle } from "react-icons/io5";
 
-import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 
+import CountUp from "react-countup";
 // Define props for animated components
+
+
+const stats = [
+  { number: 250, label: "Partner Universities", icon: <FaUniversity /> },
+  { number: 15000, label: "Active Students", icon: <FaUserGraduate /> },
+  { number: 35000, label: "Alumni Connected", icon: <IoPeopleCircle /> },
+  { number: 500, label: "Career Events", icon: <FaCalendarAlt /> }
+];
+
+const GlobalNetworkImpact = () => {
+  const { ref, inView } = useInView({ triggerOnce: true }); // ✅ Proper use of useInView
+
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (inView) {
+      setAnimate((prev) => !prev); // ✅ Toggle animation when in view
+    }
+  }, [inView]);
+
+  return (
+    <section ref={ref} className="py-20 bg-white">
+      <div className="container mx-auto text-center">
+        <h2 className="text-4xl font-bold text-blue-900 mb-16">Global Network Impact</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
+              transition={{ delay: index * 0.1 }}
+              className="p-6"
+            >
+              <div className="text-blue-600 text-4xl mb-4">{stat.icon}</div>
+              {animate && (
+                <CountUp
+                  start={0}
+                  end={stat.number}
+                  duration={2.5}
+                  separator=","
+                  className="text-5xl font-bold text-blue-900 mb-2"
+                />
+              )}
+              <p className="text-gray-600 text-lg">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 interface AnimatedTextProps {
   text: string;
   className?: string;
@@ -69,7 +123,121 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({ number, className }) =>
       {number}
     </motion.span>
   );
-};// Testimonial Component
+};const FeatureCard: React.FC<{ title: string; icon: React.ReactNode; description: string }> = 
+({ title, icon, description }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow border border-blue-50 group"
+  >
+    <div className="flex flex-col items-center text-center">
+      <div className="w-20 h-20 bg-blue-100 group-hover:bg-blue-600 transition-colors rounded-full flex items-center justify-center mb-6">
+        <span className="text-3xl text-blue-600 group-hover:text-white">{icon}</span>
+      </div>
+      <h3 className="text-2xl font-bold text-blue-900 mb-4">{title}</h3>
+      <p className="text-gray-600 leading-relaxed">{description}</p>
+    </div>
+  </motion.div>
+);
+
+const HowItWorks = () => (
+  <section className="py-20 bg-white">
+    <div className="container mx-auto">
+      <h2 className="text-4xl font-bold text-blue-900 mb-16 text-center">How It Works</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        {[
+          { icon: <FaUserGraduate />, title: "Create Profile", text: "Set up your academic profile with verified credentials" },
+          { icon: <FaUniversity />, title: "Connect Institution", text: "Link with your university's network securely" },
+          { icon: <IoPeopleCircle />, title: "Start Networking", text: "Engage with peers, alumni, and faculty members" }
+        ].map((step, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1 }}
+            className="flex flex-col items-center text-center p-6"
+          >
+            <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl mb-4">
+              {step.icon}
+            </div>
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">{step.title}</h3>
+            <p className="text-gray-600">{step.text}</p>
+            <span className="mt-4 text-blue-600 font-bold text-xl">0{index + 1}</span>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const EventsSection = () => (
+  <section className="py-20 bg-blue-50">
+    <div className="container mx-auto">
+      <h2 className="text-4xl font-bold text-blue-900 mb-12 text-center">Upcoming Events</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[1, 2, 3].map((_, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+          >
+            <div className="p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-blue-100 p-3 rounded-lg">
+                  <FaCalendarAlt className="text-blue-600 text-2xl" />
+                </div>
+                <div>
+                  <p className="font-semibold text-blue-900">Alumni Career Fair 2024</p>
+                  <p className="text-sm text-gray-500">June 15, 2024 | Virtual Event</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <FaMapMarkerAlt />
+                <span>Online Platform</span>
+              </div>
+              <button className="mt-4 w-full bg-blue-100 hover:bg-blue-600 hover:text-white text-blue-900 px-4 py-2 rounded-lg transition-colors">
+                Register Now
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const NewsletterSection = () => (
+  <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-700">
+    <div className="container mx-auto text-center">
+      <motion.div
+        initial={{ scale: 0.9 }}
+        whileInView={{ scale: 1 }}
+        className="bg-white rounded-2xl p-8 shadow-2xl mx-4"
+      >
+        <div className="max-w-2xl mx-auto">
+          <IoMailOpen className="text-5xl text-blue-600 mx-auto mb-6" />
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Stay Connected</h2>
+          <p className="text-gray-600 mb-6">Get updates on alumni events, career opportunities, and platform features</p>
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full md:w-96 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            />
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+              Subscribe Now
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+
+
+
 const Testimonial: React.FC<{ name: string; role: string; testimonial: string }> = ({ name, role, testimonial }) => {
   return (
     <motion.div
@@ -132,31 +300,49 @@ const ContactForm: React.FC = () => {
 // Footer Component
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-blue-900 text-white py-12">
-      <div className="container mx-auto text-center">
-        <p className="text-lg">&copy; 2024 Linked Matrix. All rights reserved.</p>
-        <div className="mt-4 space-x-6">
-          <a href="#" className="hover:text-blue-300 transition-colors">
-            Privacy Policy
-          </a>
-          <a href="#" className="hover:text-blue-300 transition-colors">
-            Terms of Service
-          </a>
-          <a href="#" className="hover:text-blue-300 transition-colors">
-            Contact Us
-          </a>
+    <footer className="bg-blue-900 text-white py-16">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+        <div>
+          <h3 className="text-xl font-bold mb-4">LinkedMatrix</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Bridging academic communities worldwide through innovative networking solutions.
+          </p>
         </div>
-        <div className="mt-6 flex justify-center space-x-4">
-          <a href="#" className="text-xl hover:text-blue-300 transition-all">
-            <FaFacebook />
-          </a>
-          <a href="#" className="text-xl hover:text-blue-300 transition-all">
-            <FaTwitter />
-          </a>
-          <a href="#" className="text-xl hover:text-blue-300 transition-all">
-            <FaLinkedin />
-          </a>
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul className="space-y-2">
+            {['About Us', 'Careers', 'Blog', 'Help Center'].map((link) => (
+              <li key={link}>
+                <a href="#" className="text-gray-300 hover:text-blue-200 text-sm">{link}</a>
+              </li>
+            ))}
+          </ul>
         </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Legal</h4>
+          <ul className="space-y-2">
+            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+              <li key={link}>
+                <a href="#" className="text-gray-300 hover:text-blue-200 text-sm">{link}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-4">Connect</h4>
+          <div className="flex space-x-4">
+            {[FaFacebook, FaTwitter, FaLinkedin].map((Icon, index) => (
+              <a key={index} href="#" className="text-2xl hover:text-blue-200 transition-colors">
+                <Icon />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="container mx-auto mt-12 pt-8 border-t border-blue-800 text-center">
+        <p className="text-sm text-gray-400">
+          © 2024 LinkedMatrix. All rights reserved. | Designed with ❤️ for better education
+        </p>
       </div>
     </footer>
   );
@@ -166,74 +352,78 @@ const Footer: React.FC = () => {
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
-      {/* Hero Section */}
-      <section className="h-screen flex flex-col justify-center items-center text-center">
-        <motion.h1
+      {/* Enhanced Hero Section */}
+      <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')]"></div>
+        
+        <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-6xl font-bold text-blue-900 mb-4"
+          className="relative z-10"
         >
-          Welcome to <AnimatedText text="Linked Matrix" className="text-blue-600" />
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-xl text-gray-700 mb-8"
-        >
-          Connecting Universities, Students, and Alumni
-        </motion.p>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-all"
-        >
-          Get Started
-        </motion.button>
+          <h1 className="text-5xl md:text-7xl font-bold text-blue-900 mb-6">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              LinkedMatrix
+            </span>
+          </h1>
+          <motion.p
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed"
+          >
+            The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="flex gap-4 justify-center flex-wrap"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-600 text-white px-8 py-4 rounded-xl shadow-xl hover:bg-blue-700 transition-all text-lg font-semibold flex items-center gap-2"
+            >
+              <FaRegHandshake className="text-xl" />
+              Join Now
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-blue-900 mb-12">Our Impact</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <AnimatedNumber number={100} className="text-6xl font-bold text-blue-600" />
-              <p className="text-gray-700">Universities Registered</p>
-            </div>
-            <div>
-              <AnimatedNumber number={5000} className="text-6xl font-bold text-blue-600" />
-              <p className="text-gray-700">Active Students</p>
-            </div>
-            <div>
-              <AnimatedNumber number={10000} className="text-6xl font-bold text-blue-600" />
-              <p className="text-gray-700">Alumni Connected</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Stats Section */}
+     <GlobalNetworkImpact/>
 
-      {/* Features Section */}
+      {/* Enhanced Features Section */}
       <section className="py-20 bg-blue-50">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-blue-900 mb-12">Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {['University Registration', 'Student Interaction', 'Alumni Networking'].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <h3 className="text-2xl font-bold text-blue-900 mb-4">{feature}</h3>
-                <p className="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </motion.div>
-            ))}
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-blue-900 mb-16 text-center">Platform Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={<FaUniversity />}
+              title="University Hub"
+              description="Comprehensive university profiles with verified student and alumni networks"
+            />
+            <FeatureCard
+              icon={<FaUserGraduate />}
+              title="Career Services"
+              description="Exclusive job opportunities, mentorship programs, and career counseling"
+            />
+            <FeatureCard
+              icon={<FaRegHandshake />}
+              title="Alumni Networking"
+              description="Connect with successful alumni across industries and geographies"
+            />
           </div>
         </div>
       </section>
+
+      <HowItWorks />
+      <EventsSection />
+      <NewsletterSection />
+
 
       {/* Testimonials Section */}
       <section className="py-20 bg-white">
@@ -275,3 +465,7 @@ const LandingPage: React.FC = () => {
 };
 
 export default LandingPage;
+
+function useRef(arg0: null) {
+  throw new Error('Function not implemented.');
+}
