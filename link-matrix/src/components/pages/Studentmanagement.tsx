@@ -3,7 +3,6 @@ import {
   Box,
   Typography,
   Grid,
-  
   Table,
   TableBody,
   TableCell,
@@ -169,80 +168,16 @@ const StudentManagement: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const menuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-    { text: 'Universities', icon: <SchoolIcon />, path: '/admin/universities' },
-    { text: 'Students', icon: <PersonIcon />, path: '/admin/students' },
-    { text: 'Settings', icon: <SettingsIcon />, path: '/admin/settings' },
-  ];
+ 
 
-  const drawer = (
-    <Box>
-      <Toolbar />
-      <List>
-        {menuItems.map((item) => (
-          <ListItem
-            button
-            key={item.text}
-            onClick={() => {
-              navigate(item.path);
-              if (isMobile) setMobileOpen(false);
-            }}
-            selected={location.pathname === item.path}
-            sx={{
-              color: 'white',
-              '&.Mui-selected': {
-                background: 'rgba(255, 255, 255, 0.1)',
-              },
-              '&:hover': {
-                background: 'rgba(255, 255, 255, 0.2)',
-              }
-            }}
-          >
-            <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <GlassAppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - 240px)` },
-          ml: { sm: `240px` },
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ color: 'white' }}>
-            Student Management
-          </Typography>
-        </Toolbar>
-      </GlassAppBar>
+
       
-      <GlassDrawer
-        variant={isMobile ? 'temporary' : 'permanent'}
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-      >
-        {drawer}
-      </GlassDrawer>
+    
       
       <Box
         component="main"
