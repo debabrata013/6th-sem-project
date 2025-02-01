@@ -1,4 +1,4 @@
-package com.linkmatrix.link_matrix_spring.Controller;
+package com.linkmatrix.link_matrix_spring.Model;
 
 public class SignInRequest {
     private String email;
