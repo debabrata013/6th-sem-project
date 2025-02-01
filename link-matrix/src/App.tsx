@@ -12,6 +12,7 @@ import ProtectedRoute from './components/layout/ProtectedRoute';
 import SupperAdmin from './components/dashboard/SupperAdmin';
 import University from './components/dashboard/UniversiySA';
 import LandingPage from './components/landingpage/app';
+import StudentManagement from './components/pages/Studentmanagement';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path ="/ad"  element={<AdminDashboard/>}/>
             <Route path ="/sad"  element={<SupperAdmin/>}/>
             <Route path ="admin/universities"  element={<University/>}/>
+            <Route path ="admin/studentmanagement"  element={<StudentManagement/>}/>
             
             <Route
               path="/admin"
