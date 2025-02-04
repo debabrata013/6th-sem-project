@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Interfaces
 interface University {
@@ -26,56 +27,56 @@ const UniversitiesManagementPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentUniversity, setCurrentUniversity] = useState<University | null>(null);
+
+  // Get the current date in YYYY-MM-DD format
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const [newUniversityForm, setNewUniversityForm] = useState({
     name: '',
     location: '',
-    studentsEnrolled: 0
+    studentsEnrolled: 0,
+    registrationDate: getCurrentDate(),
+    status: 'Active' as 'Active' | 'Inactive'
   });
 
   useEffect(() => {
-    // Initial mock data
-    setUniversities([
-      {
-        id: 1,
-        name: 'Stanford University',
-        location: 'California, USA',
-        studentsEnrolled: 17000,
-        registrationDate: '2023-01-15',
-        status: 'Active'
-      },
-      {
-        id: 2,
-        name: 'MIT',
-        location: 'Massachusetts, USA',
-        studentsEnrolled: 11000,
-        registrationDate: '2023-02-20',
-        status: 'Active'
+    // Fetch data from the backend
+    const fetchUniversities = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/superadmin/show');
+        setUniversities(response.data);
+      } catch (error) {
+        console.error('Error fetching universities:', error);
       }
-    ]);
-
-    setUniversityRequests([
-      {
-        id: 1,
-        name: 'UC Berkeley',
-        contactPerson: 'Jane Doe',
-        email: 'jane.doe@berkeley.edu',
-        location: 'California, USA',
-        submissionDate: '2024-01-10'
-      }
-    ]);
-  }, []);
-
-  const handleAddUniversity = () => {
-    const newUniversity: University = {
-      id: universities.length + 1,
-      ...newUniversityForm,
-      registrationDate: new Date().toISOString().split('T')[0],
-      status: 'Active'
     };
 
-    setUniversities([...universities, newUniversity]);
-    setIsAddModalOpen(false);
-    setNewUniversityForm({ name: '', location: '', studentsEnrolled: 0 });
+    fetchUniversities();
+  }, []);
+
+  const handleAddUniversity = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/superadmin/AddUniversity', newUniversityForm);
+      console.log('University added:', response.data);
+      // Update the universities state with the new university
+      setUniversities([...universities, response.data]);
+      // Close the modal and reset the form
+      setIsAddModalOpen(false);
+      setNewUniversityForm({
+        name: '',
+        location: '',
+        studentsEnrolled: 0,
+        registrationDate: getCurrentDate(),
+        status: 'Active'
+      });
+    } catch (error) {
+      console.error('Error adding university:', error);
+    }
   };
 
   const handleEditUniversity = (university: University) => {
