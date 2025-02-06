@@ -5,7 +5,6 @@ import { useInView } from 'react-intersection-observer';
 import { FaFacebook, FaTwitter, FaLinkedin, FaRegHandshake, FaUserGraduate, FaUniversity, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { IoMailOpen, IoPeopleCircle } from "react-icons/io5";
 
-
 import CountUp from "react-countup";
 // Define props for animated components
 
@@ -353,7 +352,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       {/* Enhanced Hero Section */}
-      <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
+      {/* <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')]"></div>
         
         <motion.div
@@ -391,7 +390,121 @@ const LandingPage: React.FC = () => {
             </motion.button>
           </motion.div>
         </motion.div>
-      </section>
+      </section> */}
+      {/* <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-r from-blue-500 to-purple-300">
+  <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] animate-pulse"></div>
+  
+  <motion.div
+    initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+    className="relative z-10"
+  >
+    <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+      <span className="bg-gradient-to-r from-blue-300 to-purple-100 bg-clip-text text-transparent">
+        LinkedMatrix
+      </span>
+    </h1>
+    <motion.p
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.3 }}
+      className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+    >
+      The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
+    </motion.p>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.6 }}
+      className="flex gap-4 justify-center flex-wrap"
+    >
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-purple-600 text-white px-8 py-4 rounded-xl shadow-xl hover:bg-purple-700 transition-all text-lg font-semibold flex items-center gap-2"
+      >
+        <FaRegHandshake className="text-xl" />
+        Join Now
+      </motion.button>
+    </motion.div>
+  </motion.div>
+</section> */}
+<section
+      className="
+        relative 
+        h-screen 
+        flex flex-col 
+        justify-center 
+        items-center 
+        text-center 
+        overflow-hidden 
+        bg-gradient-to-r from-blue-500 to-purple-300 
+        bg-[length:600%_600%] 
+        animate-gradient
+      "
+    >
+      {/* SVG overlay with a subtle pulse animation */}
+      <div
+        className="
+          absolute inset-0 
+          opacity-20 
+          bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] 
+          animate-pulse
+        "
+      ></div>
+
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="relative z-10"
+      >
+        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+          <span className="bg-gradient-to-r from-blue-300 to-purple-100 bg-clip-text text-transparent">
+            LinkedMatrix
+          </span>
+        </h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+        >
+          The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          className="flex gap-4 justify-center flex-wrap"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="
+              bg-purple-600 
+              text-white 
+              px-8 py-4 
+              rounded-xl 
+              shadow-xl 
+              hover:bg-purple-700 
+              transition-all 
+              text-lg 
+              font-semibold 
+              flex 
+              items-center 
+              gap-2
+            "
+          >
+            <FaRegHandshake className="text-xl" />
+            Join Now
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    </section>
 
       {/* Enhanced Stats Section */}
      <GlobalNetworkImpact/>
