@@ -6,6 +6,8 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaRegHandshake, FaUserGraduate, FaUn
 import { IoMailOpen, IoPeopleCircle } from "react-icons/io5";
 
 import CountUp from "react-countup";
+import Foot from './utility/footer';
+import AboutUs from './aboutUs';
 // Define props for animated components
 
 
@@ -188,8 +190,8 @@ const EventsSection = () => (
                   <FaCalendarAlt className="text-blue-600 text-2xl" />
                 </div>
                 <div>
-                  <p className="font-semibold text-blue-900">Alumni Career Fair 2024</p>
-                  <p className="text-sm text-gray-500">June 15, 2024 | Virtual Event</p>
+                  <p className="font-semibold text-blue-900">Alumni Career Fair 2025</p>
+                  <p className="text-sm text-gray-500">June 15, 2025 | Virtual Event</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
@@ -260,34 +262,57 @@ const Testimonial: React.FC<{ name: string; role: string; testimonial: string }>
 };
 
 // Contact Form Component
+import { FaUser, FaEnvelope, FaRegCommentDots } from 'react-icons/fa';
+
 const ContactForm: React.FC = () => {
   return (
     <motion.form
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 w-full max-w-lg mx-auto"
+      className="bg-white p-8 rounded-xl shadow-2xl border border-gray-200 w-full max-w-lg mx-auto"
     >
-      <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">Contact Us</h3>
-      <div className="space-y-4">
-        <input
-          type="text"
-          placeholder="Your Name"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
-        />
-        <textarea
-          placeholder="Your Message"
-          rows={4}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
-        />
+      <h3 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+        Contact Us
+      </h3>
+      <div className="space-y-6">
+        {/* Name Input */}
+        <div className="relative">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
+            <FaUser />
+          </span>
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+          />
+        </div>
+        {/* Email Input */}
+        <div className="relative">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
+            <FaEnvelope />
+          </span>
+          <input
+            type="email"
+            placeholder="Your Email"
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+          />
+        </div>
+        {/* Message Textarea */}
+        <div className="relative">
+          <span className="absolute top-3 left-0 flex items-center pl-3 text-blue-500">
+            <FaRegCommentDots />
+          </span>
+          <textarea
+            placeholder="Your Message"
+            rows={5}
+            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+          ></textarea>
+        </div>
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-lg hover:shadow-lg hover:from-blue-700 hover:to-blue-600 transition-all"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-600 transition-all"
         >
           Send Message
         </button>
@@ -340,7 +365,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="container mx-auto mt-12 pt-8 border-t border-blue-800 text-center">
         <p className="text-sm text-gray-400">
-          © 2024 LinkedMatrix. All rights reserved. | Designed with ❤️ for better education
+          © 2025 LinkedMatrix. All rights reserved. | Designed with ❤️ for better education
         </p>
       </div>
     </footer>
@@ -572,7 +597,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Footer Section */}
-      <Footer />
+    <Foot/>
     </div>
   );
 };
