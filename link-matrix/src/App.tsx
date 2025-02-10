@@ -13,6 +13,11 @@ import SupperAdmin from './components/dashboard/SupperAdmin';
 import University from './components/dashboard/UniversiySA';
 import LandingPage from './components/landingpage/app';
 import StudentManagement from './components/pages/Studentmanagement';
+import AboutUs from './components/landingpage/aboutUs';
+import Blog from './components/landingpage/Blog';
+import HelpCenter from './components/landingpage/HelpCenter';
+
+import Careers from './components/landingpage/carrer';
 
 function App() {
   return (
@@ -22,6 +27,11 @@ function App() {
           <Routes>
 
             <Route path="/landingpage" element={<LandingPage />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/helpcenter" element={<HelpCenter />} />
+            <Route path="/careers" element={<Careers />} />
+
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/forgot-password" element={<ForgotPasswordForm />} />
