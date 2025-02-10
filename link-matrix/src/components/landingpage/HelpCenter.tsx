@@ -162,7 +162,7 @@ const HelpCenter: React.FC = () => {
               <FaPhoneAlt size={40} className="text-blue-600" />
               <div>
                 <h3 className="text-xl font-bold">Phone</h3>
-                <p className="text-gray-600">+1 (555) 123-4567</p>
+                <p className="text-gray-600">+91 8235456789</p>
               </div>
             </div>
             {/* Email Contact */}
