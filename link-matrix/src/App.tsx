@@ -19,6 +19,9 @@ import HelpCenter from './components/landingpage/HelpCenter';
 
 import Careers from './components/landingpage/carrer';
 
+
+import StudentManagementUni from "./components/Universityadminpages/studentmanagement";
+
 function App() {
   return (
     <Provider store={store}>
@@ -40,6 +43,10 @@ function App() {
             <Route path ="/sad"  element={<SupperAdmin/>}/>
             <Route path ="admin/universities"  element={<University/>}/>
             <Route path ="admin/studentmanagement"  element={<StudentManagement/>}/>
+
+            
+            
+
             
             <Route
               path="/admin"
