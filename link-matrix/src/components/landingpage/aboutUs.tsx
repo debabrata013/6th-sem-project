@@ -10,10 +10,14 @@ import {
   FaUniversity,
   FaCalendarAlt,
   FaMapMarkerAlt,
+  FaInstagram,
+  FaYoutube,
 } from 'react-icons/fa';
 import { IoMailOpen, IoPeopleCircle } from 'react-icons/io5';
+import { TbTargetArrow } from 'react-icons/tb';
+import { FiUsers } from 'react-icons/fi';
 
-// Reusable animated card for "Our Values" section
+// Enhanced animated card component
 interface AnimatedCardProps {
   icon: React.ReactNode;
   title: string;
@@ -28,20 +32,20 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
   delay,
 }) => (
   <motion.div
-    className="bg-gray-100 rounded-lg p-6 text-center"
+    className="bg-gradient-to-b from-blue-50 to-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay }}
   >
-    <div className="bg-blue-600 text-white rounded-full inline-flex p-4 mb-4 mx-auto">
+    <div className="bg-gradient-to-br from-blue-600 to-blue-400 text-white rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
       {icon}
     </div>
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{description}</p>
+    <h3 className="text-2xl font-bold text-gray-800 mb-4">{title}</h3>
+    <p className="text-gray-600 leading-relaxed">{description}</p>
   </motion.div>
 );
 
-// Types and component for team members
+// Enhanced team member card
 interface TeamMember {
   name: string;
   role: string;
@@ -54,241 +58,329 @@ interface TeamMember {
   };
 }
 
-interface TeamMemberCardProps {
-  member: TeamMember;
-  delay: number;
-}
-
-const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, delay }) => (
+const TeamMemberCard: React.FC<{ member: TeamMember; delay: number }> = ({
+  member,
+  delay,
+}) => (
   <motion.div
-    className="bg-white rounded-lg shadow p-6 text-center"
+    className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay }}
   >
-    <img
-      src={member.image}
-      alt={member.name}
-      className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-    />
-    <h3 className="text-xl font-semibold">{member.name}</h3>
-    <p className="text-gray-600 mb-4">{member.role}</p>
-    <div className="flex justify-center space-x-4">
-      {member.socials?.facebook && (
-        <a href={member.socials.facebook} target="_blank" rel="noopener noreferrer">
-          <FaFacebook className="text-blue-600 hover:text-blue-800" size={20} />
-        </a>
-      )}
-      {member.socials?.twitter && (
-        <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer">
-          <FaTwitter className="text-blue-400 hover:text-blue-600" size={20} />
-        </a>
-      )}
-      {member.socials?.linkedin && (
-        <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="text-blue-700 hover:text-blue-900" size={20} />
-        </a>
-      )}
-      {member.socials?.email && (
-        <a href={`mailto:${member.socials.email}`} target="_blank" rel="noopener noreferrer">
-          <IoMailOpen className="text-gray-600 hover:text-gray-800" size={20} />
-        </a>
-      )}
+    <div className="relative overflow-hidden">
+      <img
+        src={member.image}
+        alt={member.name}
+        className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent" />
+    </div>
+    <div className="p-6 text-center -mt-8">
+      <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
+      <p className="text-blue-600 font-medium mb-4">{member.role}</p>
+      <div className="flex justify-center space-x-3">
+        {Object.entries(member.socials || {}).map(([platform, link]) => (
+          <a
+            key={platform}
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            aria-label={`${member.name}'s ${platform}`}
+          >
+            {platform === 'linkedin' && <FaLinkedin size={20} />}
+            {platform === 'twitter' && <FaTwitter size={20} />}
+            {platform === 'facebook' && <FaFacebook size={20} />}
+            {platform === 'email' && <IoMailOpen size={20} />}
+          </a>
+        ))}
+      </div>
     </div>
   </motion.div>
 );
 
 const AboutUs: React.FC = () => {
-  // Example team member data; replace image URLs and links as needed.
+  const stats = [
+    { value: '10K+', label: 'Active Members', icon: <FiUsers size={24} /> },
+    { value: '50+', label: 'Universities', icon: <FaUniversity size={24} /> },
+    { value: '100+', label: 'Events Hosted', icon: <FaCalendarAlt size={24} /> },
+    { value: '95%', label: 'Success Rate', icon: <TbTargetArrow size={24} /> },
+  ];
+
   const teamMembers: TeamMember[] = [
     {
       name: 'Alice Johnson',
       role: 'CEO & Founder',
-      image: 'https://i.pravatar.cc/150?img=18',
+      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956',
       socials: {
-        linkedin: 'https://linkedin.com/in/alicejohnson',
-        twitter: 'https://twitter.com/alicejohnson',
-        email: 'alice@example.com',
+        linkedin: '#',
+        twitter: '#',
+        email: '#',
       },
     },
     {
       name: 'Bob Smith',
       role: 'CTO',
-      image: 'https://i.pravatar.cc/150?img=52',
+      image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6',
       socials: {
-        linkedin: 'https://linkedin.com/in/bobsmith',
-        twitter: 'https://twitter.com/bobsmith',
-        email: 'bob@example.com',
+        linkedin: '#',
+        twitter: '#',
       },
     },
     {
       name: 'Carol White',
       role: 'Head of Marketing',
-      image: 'https://i.pravatar.cc/150?img=17',
+      image: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e',
       socials: {
-        linkedin: 'https://linkedin.com/in/carolwhite',
-        twitter: 'https://twitter.com/carolwhite',
-        email: 'carol@example.com',
+        linkedin: '#',
+       twitter: '#',
       },
     },
     {
       name: 'David Lee',
       role: 'Community Manager',
-      image: 'https://i.pravatar.cc/150?img=65',
+      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d',
       socials: {
-        linkedin: 'https://linkedin.com/in/davidlee',
-        twitter: 'https://twitter.com/davidlee',
-        email: 'david@example.com',
+        linkedin: '#',
+        twitter: '#',
       },
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header with gradient background */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4">About Linked Matrix</h1>
-          <p className="text-2xl">Your Gateway to Alumni &amp; Student Connections</p>
+      {/* Enhanced Header */}
+      <header className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')]" />
+        <div className="container mx-auto px-4 text-center relative">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl font-bold mb-6"
+          >
+            About Linked Matrix
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-xl max-w-2xl mx-auto"
+          >
+            Connecting generations of learners to build stronger professional futures
+          </motion.p>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 space-y-16">
-        {/* Our Mission */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white shadow-lg rounded-lg p-8"
-        >
-          <div className="flex items-center mb-4">
-            <div className="bg-blue-600 text-white rounded-full p-3 mr-3">
-              <FaRegHandshake size={32} />
-            </div>
-            <h2 className="text-2xl font-semibold border-b-2 border-blue-600 pb-2">
-              Our Mission
-            </h2>
-          </div>
-          <p className="text-gray-700">
-            At Linked Matrix, we aim to build a vibrant platform where alumni and
-            students can connect, share experiences, and forge professional networks.
-            Our mission is to empower individuals through meaningful interactions and
-            collaborative growth.
-          </p>
-        </motion.section>
+      {/* Stats Section */}
+      <section className="container mx-auto px-4 py-16 -mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <div className="flex items-center justify-center space-x-4">
+                <div className="bg-blue-100 p-3 rounded-lg text-blue-600">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
+                  <div className="text-gray-600">{stat.label}</div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-        {/* Our Vision */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-white shadow-lg rounded-lg p-8"
-        >
-          <div className="flex items-center mb-4">
-            <div className="bg-blue-600 text-white rounded-full p-3 mr-3">
-              <IoPeopleCircle size={32} />
+      {/* Mission & Vision Sections */}
+      <main className="container mx-auto px-4 py-12 space-y-20">
+        <section className="grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            className="relative rounded-2xl overflow-hidden"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
+              alt="Team collaboration"
+              className="w-full h-96 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-transparent" />
+          </motion.div>
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center space-x-3 mb-6">
+              <div className="bg-blue-600 text-white p-3 rounded-lg">
+                <FaRegHandshake size={28} />
+              </div>
+              <h2 className="text-3xl font-bold text-gray-800">Our Mission</h2>
             </div>
-            <h2 className="text-2xl font-semibold border-b-2 border-blue-600 pb-2">
-              Our Vision
-            </h2>
-          </div>
-          <p className="text-gray-700">
-            We envision a future where every student benefits from the invaluable
-            guidance of alumni, creating a seamless bridge between academic life and
-            the professional world. Together, we strive to foster a community of
-            lifelong learning and collaboration.
-          </p>
-        </motion.section>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              We're dedicated to creating transformative connections between academic 
+              communities and industry leaders. Our platform bridges the gap between 
+              classroom learning and real-world success through mentorship, networking, 
+              and shared experiences.
+            </p>
+          </motion.div>
+        </section>
 
-        {/* Our Values */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-white shadow-lg rounded-lg p-8"
-        >
-          <h2 className="text-2xl font-semibold border-b-2 border-blue-600 pb-2 mb-8 text-center">
-            Our Values
-          </h2>
+        <section className="grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            className="space-y-6 order-last md:order-first"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="inline-flex items-center space-x-3 mb-6">
+              <div className="bg-blue-600 text-white p-3 rounded-lg">
+                <IoPeopleCircle size={28} />
+              </div>
+              <h2 className="text-3xl font-bold text-gray-800">Our Vision</h2>
+            </div>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              To become the global nexus for professional-academic collaboration, 
+              where every student has access to a network of experienced mentors 
+              and every alumnus can contribute to shaping future industry leaders.
+            </p>
+          </motion.div>
+          <motion.div
+            className="relative rounded-2xl overflow-hidden"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7"
+              alt="Vision"
+              className="w-full h-96 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-blue-900/60 to-transparent" />
+          </motion.div>
+        </section>
+
+        {/* Values Section */}
+        <section className="space-y-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold text-center text-gray-800"
+          >
+            Core Values
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatedCard
-              icon={<FaLinkedin size={32} />}
-              title="Connectivity"
-              description="Building bridges between alumni and students for lasting relationships."
+              icon={<FaLinkedin size={28} />}
+              title="Collaborative Network"
+              description="Fostering meaningful connections that transcend academic generations"
+              delay={0.2}
+            />
+            <AnimatedCard
+              icon={<FaUserGraduate size={28} />}
+              title="Lifelong Learning"
+              description="Continuous growth through shared knowledge and experiences"
+              delay={0.4}
+            />
+            <AnimatedCard
+              icon={<FaRegHandshake size={28} />}
+              title="Integrity First"
+              description="Building trust through transparency and ethical practices"
               delay={0.6}
             />
             <AnimatedCard
-              icon={<FaUserGraduate size={32} />}
-              title="Growth"
-              description="Empowering personal and professional development at every stage."
-              delay={0.7}
-            />
-            <AnimatedCard
-              icon={<FaRegHandshake size={32} />}
-              title="Integrity"
-              description="Upholding trust, transparency, and ethical standards in all our endeavors."
+              icon={<FaCalendarAlt size={28} />}
+              title="Innovation Driven"
+              description="Pioneering new ways to connect academia and industry"
               delay={0.8}
             />
-            <AnimatedCard
-              icon={<FaCalendarAlt size={32} />}
-              title="Innovation"
-              description="Fostering creative problem-solving and forward-thinking solutions."
-              delay={0.9}
-            />
           </div>
-        </motion.section>
+        </section>
 
-        {/* New Section: Meet Our Team */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className="bg-white shadow-lg rounded-lg p-8"
-        >
-          <h2 className="text-2xl font-semibold border-b-2 border-blue-600 pb-2 mb-8 text-center">
-            Meet Our Team
-          </h2>
+        {/* Team Section */}
+        <section className="space-y-16">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center"
+          >
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Leadership Team</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Meet the passionate professionals driving our mission forward
+            </p>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <TeamMemberCard
                 key={member.name}
                 member={member}
-                delay={1.1 + index * 0.1}
+                delay={index * 0.1}
               />
             ))}
           </div>
-        </motion.section>
+        </section>
 
-        {/* New Section: Contact Us */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
-          className="bg-white shadow-lg rounded-lg p-8"
-        >
-          <h2 className="text-2xl font-semibold border-b-2 border-blue-600 pb-2 mb-8 text-center">
-            Get in Touch
-          </h2>
-          <div className="flex flex-col md:flex-row justify-around items-center">
-            <div className="flex items-center mb-4 md:mb-0">
-              <IoMailOpen size={32} className="text-blue-600 mr-3" />
-              <span className="text-gray-700 text-lg">
-                contact@linkedmatrix.com
-              </span>
+        {/* Contact Section */}
+        <section className="bg-gradient-to-br from-blue-900 to-blue-700 text-white rounded-2xl p-12">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl font-bold"
+            >
+              Ready to Join the Matrix?
+            </motion.h2>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Connect with your academic community and unlock new opportunities
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <motion.a
+                href="#"
+                className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-300 flex items-center space-x-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Get Started</span>
+                <TbTargetArrow size={20} />
+              </motion.a>
+              <motion.a
+                href="#"
+                className="border-2 border-white px-8 py-4 rounded-full hover:bg-white/10 transition-colors duration-300 flex items-center space-x-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Schedule Demo</span>
+                <FaCalendarAlt size={18} />
+              </motion.a>
             </div>
-            <div className="flex items-center mb-4 md:mb-0">
-              <FaMapMarkerAlt size={32} className="text-blue-600 mr-3" />
-              <span className="text-gray-700 text-lg">
-                1234 University Ave, City, Country
-              </span>
-            </div>
-            <div className="flex items-center">
-              <FaUniversity size={32} className="text-blue-600 mr-3" />
-              <span className="text-gray-700 text-lg">Linked Matrix HQ</span>
+            <div className="pt-8 border-t border-white/20 mt-12 flex justify-center space-x-6">
+              <a href="#" className="hover:text-blue-200 transition-colors">
+                <FaFacebook size={24} />
+              </a>
+              <a href="#" className="hover:text-blue-200 transition-colors">
+                <FaTwitter size={24} />
+              </a>
+              <a href="#" className="hover:text-blue-200 transition-colors">
+                <FaLinkedin size={24} />
+              </a>
+              <a href="#" className="hover:text-blue-200 transition-colors">
+                <FaInstagram size={24} />
+              </a>
+              <a href="#" className="hover:text-blue-200 transition-colors">
+                <FaYoutube size={24} />
+              </a>
             </div>
           </div>
-        </motion.section>
+        </section>
       </main>
 
       <Footer />
