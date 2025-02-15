@@ -9,7 +9,6 @@ import {
   FaUserGraduate,
   FaUniversity,
   FaCalendarAlt,
-  FaMapMarkerAlt,
   FaInstagram,
   FaYoutube,
 } from 'react-icons/fa';
@@ -17,7 +16,7 @@ import { IoMailOpen, IoPeopleCircle } from 'react-icons/io5';
 import { TbTargetArrow } from 'react-icons/tb';
 import { FiUsers } from 'react-icons/fi';
 
-// Enhanced animated card component
+// Enhanced animated card component with hover effect
 interface AnimatedCardProps {
   icon: React.ReactNode;
   title: string;
@@ -32,9 +31,10 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
   delay,
 }) => (
   <motion.div
-    className="bg-gradient-to-b from-blue-50 to-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300"
+    className="bg-gradient-to-b from-blue-50 to-white rounded-xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
+    whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.5, delay }}
   >
     <div className="bg-gradient-to-br from-blue-600 to-blue-400 text-white rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
@@ -45,7 +45,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
   </motion.div>
 );
 
-// Enhanced team member card
+// Enhanced team member card with hover effects
 interface TeamMember {
   name: string;
   role: string;
@@ -55,6 +55,7 @@ interface TeamMember {
     twitter?: string;
     linkedin?: string;
     email?: string;
+    instagram?: string;
   };
 }
 
@@ -63,9 +64,10 @@ const TeamMemberCard: React.FC<{ member: TeamMember; delay: number }> = ({
   delay,
 }) => (
   <motion.div
-    className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+    className="group relative bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
+    whileHover={{ scale: 1.03 }}
     transition={{ duration: 0.5, delay }}
   >
     <div className="relative overflow-hidden">
@@ -80,21 +82,23 @@ const TeamMemberCard: React.FC<{ member: TeamMember; delay: number }> = ({
       <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
       <p className="text-blue-600 font-medium mb-4">{member.role}</p>
       <div className="flex justify-center space-x-3">
-        {Object.entries(member.socials || {}).map(([platform, link]) => (
-          <a
-            key={platform}
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
-            aria-label={`${member.name}'s ${platform}`}
-          >
-            {platform === 'linkedin' && <FaLinkedin size={20} />}
-            {platform === 'twitter' && <FaTwitter size={20} />}
-            {platform === 'facebook' && <FaFacebook size={20} />}
-            {platform === 'email' && <IoMailOpen size={20} />}
-          </a>
-        ))}
+        {member.socials &&
+          Object.entries(member.socials).map(([platform, link]) => (
+            <a
+              key={platform}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-blue-600 transition-colors duration-300"
+              aria-label={`${member.name}'s ${platform}`}
+            >
+              {platform === 'linkedin' && <FaLinkedin size={20} />}
+              {platform === 'twitter' && <FaTwitter size={20} />}
+              {platform === 'facebook' && <FaFacebook size={20} />}
+              {platform === 'email' && <IoMailOpen size={20} />}
+              {platform === 'instagram' && <FaInstagram size={20} />}
+            </a>
+          ))}
       </div>
     </div>
   </motion.div>
@@ -134,7 +138,7 @@ const AboutUs: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e',
       socials: {
         linkedin: '#',
-       twitter: '#',
+        instagram: '#',
       },
     },
     {
@@ -150,15 +154,18 @@ const AboutUs: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Enhanced Header */}
+      {/* Header */}
       <header className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')]" />
+        <div
+          className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] bg-cover"
+          aria-hidden="true"
+        />
         <div className="container mx-auto px-4 text-center relative">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-6xl font-bold mb-6"
+            className="text-6xl font-bold mb-6 drop-shadow-lg"
           >
             About Linked Matrix
           </motion.h1>
@@ -166,22 +173,24 @@ const AboutUs: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="text-xl max-w-2xl mx-auto"
+            className="text-xl max-w-2xl mx-auto drop-shadow-md"
           >
-            Connecting generations of learners to build stronger professional futures
+            Connecting generations of learners to build stronger professional
+            futures.
           </motion.p>
         </div>
       </header>
 
       {/* Stats Section */}
       <section className="container mx-auto px-4 py-16 -mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="flex items-center justify-center space-x-4">
@@ -189,7 +198,9 @@ const AboutUs: React.FC = () => {
                   {stat.icon}
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
+                  <div className="text-3xl font-bold text-gray-800">
+                    {stat.value}
+                  </div>
                   <div className="text-gray-600">{stat.label}</div>
                 </div>
               </div>
@@ -205,6 +216,7 @@ const AboutUs: React.FC = () => {
             className="relative rounded-2xl overflow-hidden"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.6 }}
           >
             <img
@@ -227,10 +239,7 @@ const AboutUs: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-800">Our Mission</h2>
             </div>
             <p className="text-gray-600 text-lg leading-relaxed">
-              We're dedicated to creating transformative connections between academic 
-              communities and industry leaders. Our platform bridges the gap between 
-              classroom learning and real-world success through mentorship, networking, 
-              and shared experiences.
+              We&apos;re dedicated to creating transformative connections between academic communities and industry leaders. Our platform bridges the gap between classroom learning and real-world success through mentorship, networking, and shared experiences.
             </p>
           </motion.div>
         </section>
@@ -249,15 +258,14 @@ const AboutUs: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-800">Our Vision</h2>
             </div>
             <p className="text-gray-600 text-lg leading-relaxed">
-              To become the global nexus for professional-academic collaboration, 
-              where every student has access to a network of experienced mentors 
-              and every alumnus can contribute to shaping future industry leaders.
+              To become the global nexus for professional-academic collaboration, where every student has access to a network of experienced mentors and every alumnus can contribute to shaping future industry leaders.
             </p>
           </motion.div>
           <motion.div
             className="relative rounded-2xl overflow-hidden"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.6 }}
           >
             <img
@@ -269,7 +277,7 @@ const AboutUs: React.FC = () => {
           </motion.div>
         </section>
 
-        {/* Values Section */}
+        {/* Core Values Section */}
         <section className="space-y-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -282,25 +290,25 @@ const AboutUs: React.FC = () => {
             <AnimatedCard
               icon={<FaLinkedin size={28} />}
               title="Collaborative Network"
-              description="Fostering meaningful connections that transcend academic generations"
+              description="Fostering meaningful connections that transcend academic generations."
               delay={0.2}
             />
             <AnimatedCard
               icon={<FaUserGraduate size={28} />}
               title="Lifelong Learning"
-              description="Continuous growth through shared knowledge and experiences"
+              description="Continuous growth through shared knowledge and experiences."
               delay={0.4}
             />
             <AnimatedCard
               icon={<FaRegHandshake size={28} />}
               title="Integrity First"
-              description="Building trust through transparency and ethical practices"
+              description="Building trust through transparency and ethical practices."
               delay={0.6}
             />
             <AnimatedCard
               icon={<FaCalendarAlt size={28} />}
               title="Innovation Driven"
-              description="Pioneering new ways to connect academia and industry"
+              description="Pioneering new ways to connect academia and industry."
               delay={0.8}
             />
           </div>
@@ -313,9 +321,11 @@ const AboutUs: React.FC = () => {
             animate={{ opacity: 1 }}
             className="text-center"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Leadership Team</h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Leadership Team
+            </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Meet the passionate professionals driving our mission forward
+              Meet the passionate professionals driving our mission forward.
             </p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -340,7 +350,7 @@ const AboutUs: React.FC = () => {
               Ready to Join the Matrix?
             </motion.h2>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Connect with your academic community and unlock new opportunities
+              Connect with your academic community and unlock new opportunities.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <motion.a
