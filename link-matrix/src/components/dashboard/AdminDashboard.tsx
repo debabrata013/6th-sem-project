@@ -319,19 +319,6 @@ const mockUniversityData = {
 
 // Colors for the PieChart
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
-
-// -----------------------------------------------------------------------------
-// TYPES (Used in the Management Page)
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
-// COMPONENTS USED IN THE "STUDENT & ALUMNI MANAGEMENT" VIEW
-// -----------------------------------------------------------------------------
-
-// This component shows a simple overview (total counts) for the management page.
-
-
-// Define your types (adjust as needed)
 interface Student {
   id: number;
   name: string;
@@ -1109,31 +1096,18 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView }) => {
           <Users className="w-5 h-5" />
           <span className="ml-3">Students</span>
         </button>
-        {/* Other sidebar items can remain as static links */}
-        <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
-          <BookOpen className="w-5 h-5" />
-          <span className="ml-3">Courses</span>
-        </a>
+      
         <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
           <Building className="w-5 h-5" />
           <span className="ml-3">Departments</span>
         </a>
-        <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
-          <UserCheck className="w-5 h-5" />
-          <span className="ml-3">Faculty</span>
-        </a>
-        <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
-          <Shield className="w-5 h-5" />
-          <span className="ml-3">Research</span>
-        </a>
+       
+        
         <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
           <Bell className="w-5 h-5" />
           <span className="ml-3">Notifications</span>
         </a>
-        <a href="#" className="flex items-center px-6 py-2 text-gray-700 hover:bg-gray-200 transition">
-          <Settings className="w-5 h-5" />
-          <span className="ml-3">Settings</span>
-        </a>
+       
       </nav>
     </div>
   );
@@ -1220,20 +1194,7 @@ const UniversityAdminDashboard: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-5 bg-white rounded-lg shadow">
-                  <div className="flex items-center">
-                    <div className="p-3 rounded-full bg-purple-100">
-                      <Building className="w-6 h-6 text-purple-500" />
-                    </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-500">Departments</div>
-                      <div className="mt-1 text-2xl font-semibold">5</div>
-                      <div className="text-sm text-gray-600">
-                        {mockUniversityData.metrics.activeCourses} active courses
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
                 <div className="px-4 py-5 bg-white rounded-lg shadow">
                   <div className="flex items-center">
                     <div className="p-3 rounded-full bg-yellow-100">
@@ -1266,32 +1227,8 @@ const UniversityAdminDashboard: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-5 bg-white rounded-lg shadow">
-                  <div className="flex items-center">
-                    <div className="p-3 rounded-full bg-green-100">
-                      <UserCheck className="w-6 h-6 text-green-500" />
-                    </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-500">Faculty Members</div>
-                      <div className="mt-1 text-2xl font-semibold">
-                        {mockUniversityData.metrics.facultyMembers.toLocaleString()}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-4 py-5 bg-white rounded-lg shadow">
-                  <div className="flex items-center">
-                    <div className="p-3 rounded-full bg-red-100">
-                      <Bell className="w-6 h-6 text-red-500" />
-                    </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-gray-500">Pending Requests</div>
-                      <div className="mt-1 text-2xl font-semibold">
-                        {mockUniversityData.metrics.pendingRequests}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
+            
               </div>
 
               {/* Charts Section */}

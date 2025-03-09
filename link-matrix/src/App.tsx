@@ -17,6 +17,7 @@ import AboutUs from './components/landingpage/aboutUs';
 import Blog from './components/landingpage/Blog';
 import HelpCenter from './components/landingpage/HelpCenter';
 
+import StudentDasboard from'./components/userDashboard/home';
 import Careers from './components/landingpage/carrer';
 
 
@@ -34,6 +35,8 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/helpcenter" element={<HelpCenter />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/sd" element={<StudentDasboard />} />
+
 
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
