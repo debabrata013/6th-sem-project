@@ -43,7 +43,7 @@ const NetworkDashboard: React.FC = () => {
           <nav className="flex items-center space-x-2">
             <a href="#" className="flex flex-col items-center px-3 py-1 text-gray-500 hover:text-black">
               <HomeIcon className="h-6 w-6" />
-              <span className="text-xs mt-1">Dashboard</span>
+              <span className="text-xs mt-1">Dashboard Home </span>
             </a>
             <a href="#" className="flex flex-col items-center px-3 py-1 text-gray-500 hover:text-black">
               <UserGroupIcon className="h-6 w-6" />
@@ -59,12 +59,12 @@ const NetworkDashboard: React.FC = () => {
             </a>
             <a href="#" className="flex flex-col items-center px-3 py-1 text-gray-500 hover:text-black">
               <BellIcon className="h-6 w-6" />
-              <span className="text-xs mt-1">Alerts</span>
+              <span className="text-xs mt-1">Event Alerts</span>
             </a>
             <a href="#" className="flex flex-col items-center px-3 py-1 text-gray-500 hover:text-black">
               <img src="/api/placeholder/32/32" alt="Profile" className="h-6 w-6 rounded-full" />
               <div className="flex items-center text-xs mt-1">
-                <span>Profile</span>
+                <span>My Profile</span>
                 <ChevronDownIcon className="h-3 w-3 ml-1" />
               </div>
             </a>
