@@ -20,7 +20,7 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       await dispatch(login(formData)).unwrap();
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
       // Error is handled by the reducer
     }

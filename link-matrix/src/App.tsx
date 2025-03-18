@@ -22,6 +22,7 @@ import Careers from './components/landingpage/carrer';
 
 
 import StudentManagementUni from "./components/Universityadminpages/studentmanagement";
+import Home from './components/landingpage/Home';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
             <Route path="/helpcenter" element={<HelpCenter />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/sd" element={<StudentDasboard />} />
-
+            <Route path ="/home" element={<Home/>}/>
 
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
@@ -67,7 +68,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/" element={<LoginForm />} />
+            <Route path="/" element={<LandingPage />} />
           </Routes>
         </Router>
       </PersistGate>

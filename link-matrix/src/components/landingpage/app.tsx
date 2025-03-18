@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion,useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaFacebook, FaTwitter, FaLinkedin, FaRegHandshake, FaUserGraduate, FaUniversity, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { IoMailOpen, IoPeopleCircle } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 import CountUp from "react-countup";
 import Foot from './utility/footer';
@@ -263,14 +263,42 @@ const Testimonial: React.FC<{ name: string; role: string; testimonial: string }>
 
 // Contact Form Component
 import { FaUser, FaEnvelope, FaRegCommentDots } from 'react-icons/fa';
+import axios from 'axios';
 
 const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/submit-feedback', formData);
+      alert('Feedback submitted successfully');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      alert('Failed to submit feedback');
+    }
+  };
+
   return (
     <motion.form
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="bg-white p-8 rounded-xl shadow-2xl border border-gray-200 w-full max-w-lg mx-auto"
+      onSubmit={handleSubmit}
     >
       <h3 className="text-3xl font-bold text-blue-900 mb-8 text-center">
         Contact Us
@@ -283,7 +311,10 @@ const ContactForm: React.FC = () => {
           </span>
           <input
             type="text"
+            name="name"
             placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
           />
         </div>
@@ -294,7 +325,10 @@ const ContactForm: React.FC = () => {
           </span>
           <input
             type="email"
+            name="email"
             placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
           />
         </div>
@@ -304,8 +338,11 @@ const ContactForm: React.FC = () => {
             <FaRegCommentDots />
           </span>
           <textarea
+            name="message"
             placeholder="Your Message"
             rows={5}
+            value={formData.message}
+            onChange={handleChange}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
           ></textarea>
         </div>
@@ -320,6 +357,8 @@ const ContactForm: React.FC = () => {
     </motion.form>
   );
 };
+
+// export default ContactForm;
 
 // Footer Component
 const Footer: React.FC = () => {
@@ -374,31 +413,60 @@ const Footer: React.FC = () => {
 
 // Landing Page Component
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleJoinNowClick = () => {
+    navigate('/login');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
       {/* Enhanced Hero Section */}
-      {/* <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')]"></div>
-        
+      <section
+        className="
+          relative 
+          h-screen 
+          flex flex-col 
+          justify-center 
+          items-center 
+          text-center 
+          overflow-hidden 
+          bg-gradient-to-r from-blue-500 to-purple-300 
+          bg-[length:600%_600%] 
+          animate-gradient
+        "
+      >
+        {/* SVG overlay with a subtle pulse animation */}
+        <div
+          className="
+            absolute inset-0 
+            opacity-20 
+            bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] 
+            animate-pulse
+          "
+        ></div>
+
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           className="relative z-10"
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-blue-900 mb-6">
-            <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+            <span className="bg-gradient-to-r from-blue-300 to-purple-100 bg-clip-text text-transparent">
               LinkedMatrix
             </span>
           </h1>
+
           <motion.p
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
             The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -408,131 +476,31 @@ const LandingPage: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-blue-600 text-white px-8 py-4 rounded-xl shadow-xl hover:bg-blue-700 transition-all text-lg font-semibold flex items-center gap-2"
+              className="
+                bg-purple-600 
+                text-white 
+                px-8 py-4 
+                rounded-xl 
+                shadow-xl 
+                hover:bg-purple-700 
+                transition-all 
+                text-lg 
+                font-semibold 
+                flex 
+                items-center 
+                gap-2
+              "
+              onClick={handleJoinNowClick}
             >
               <FaRegHandshake className="text-xl" />
               Join Now
             </motion.button>
           </motion.div>
         </motion.div>
-      </section> */}
-      {/* <section className="h-screen flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-r from-blue-500 to-purple-300">
-  <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] animate-pulse"></div>
-  
-  <motion.div
-    initial={{ opacity: 0, y: -50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    className="relative z-10"
-  >
-    <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-      <span className="bg-gradient-to-r from-blue-300 to-purple-100 bg-clip-text text-transparent">
-        LinkedMatrix
-      </span>
-    </h1>
-    <motion.p
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.3 }}
-      className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
-    >
-      The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
-    </motion.p>
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.6 }}
-      className="flex gap-4 justify-center flex-wrap"
-    >
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-purple-600 text-white px-8 py-4 rounded-xl shadow-xl hover:bg-purple-700 transition-all text-lg font-semibold flex items-center gap-2"
-      >
-        <FaRegHandshake className="text-xl" />
-        Join Now
-      </motion.button>
-    </motion.div>
-  </motion.div>
-</section> */}
-<section
-      className="
-        relative 
-        h-screen 
-        flex flex-col 
-        justify-center 
-        items-center 
-        text-center 
-        overflow-hidden 
-        bg-gradient-to-r from-blue-500 to-purple-300 
-        bg-[length:600%_600%] 
-        animate-gradient
-      "
-    >
-      {/* SVG overlay with a subtle pulse animation */}
-      <div
-        className="
-          absolute inset-0 
-          opacity-20 
-          bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTIwMCA2MDAiPjxwYXRoIGQ9Ik0xMjAwIDBMMCA2MDAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+')] 
-          animate-pulse
-        "
-      ></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="relative z-10"
-      >
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-          <span className="bg-gradient-to-r from-blue-300 to-purple-100 bg-clip-text text-transparent">
-            LinkedMatrix
-          </span>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed"
-        >
-          The Next Generation Platform Connecting Universities, Students, and Alumni Worldwide
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="flex gap-4 justify-center flex-wrap"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="
-              bg-purple-600 
-              text-white 
-              px-8 py-4 
-              rounded-xl 
-              shadow-xl 
-              hover:bg-purple-700 
-              transition-all 
-              text-lg 
-              font-semibold 
-              flex 
-              items-center 
-              gap-2
-            "
-          >
-            <FaRegHandshake className="text-xl" />
-            Join Now
-          </motion.button>
-        </motion.div>
-      </motion.div>
-    </section>
+      </section>
 
       {/* Enhanced Stats Section */}
-     <GlobalNetworkImpact/>
+      <GlobalNetworkImpact />
 
       {/* Enhanced Features Section */}
       <section className="py-20 bg-blue-50">
@@ -561,7 +529,6 @@ const LandingPage: React.FC = () => {
       <HowItWorks />
       <EventsSection />
       <NewsletterSection />
-
 
       {/* Testimonials Section */}
       <section className="py-20 bg-white">

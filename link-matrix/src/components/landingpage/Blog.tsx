@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Footer from './utility/footer';
+import BlogPostForm from './BlogPostForm';
 
 interface BlogPost {
   id: number;
@@ -109,8 +110,12 @@ const fadeInUp = {
 };
 
 const Blog: React.FC = () => {
-  // Use the first post as the featured post
-  const featuredPost = blogPosts[0];
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleFormSubmit = (post: { title: string; content: string }) => {
+    // Handle the form submission logic here
+    console.log('New Post:', post);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -124,7 +129,7 @@ const Blog: React.FC = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center items-center mb-4">
             <svg className="w-16 h-16 mr-3 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a8 8 0 108 8 8.01 8.01 0 00-8-8zm1 11H9v-2h2zm0-4H9V5h2z" />
+              <path d="M10 2a8 8 0 108 8 8.01 8.01 0 00-8-8zm1 11H9v-2h2zm0-4H9V5h2v5z" />
             </svg>
             <h1 className="text-5xl font-bold">Linked Matrix Blog</h1>
           </div>
@@ -134,6 +139,16 @@ const Blog: React.FC = () => {
 
       {/* Main Content Section */}
       <main className="container mx-auto px-4 py-12 space-y-16">
+        {/* Create Button */}
+        <div className="flex justify-end mb-8">
+          <button
+            onClick={() => setIsFormOpen(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+          >
+            Create Blog Post
+          </button>
+        </div>
+
         {/* Featured Post Section */}
         <motion.section
           variants={fadeInUp}
@@ -152,11 +167,11 @@ const Blog: React.FC = () => {
               />
             </div>
             <div className="p-8 md:w-1/2">
-              <h2 className="text-3xl font-bold text-blue-600 mb-4">{featuredPost.title}</h2>
+              <h2 className="text-3xl font-bold text-blue-600 mb-4">{blogPosts[0].title}</h2>
               <p className="text-sm text-gray-500 mb-4">
-                {featuredPost.date} — {featuredPost.category}
+                {blogPosts[0].date} — {blogPosts[0].category}
               </p>
-              <p className="text-gray-700 mb-6">{featuredPost.excerpt}</p>
+              <p className="text-gray-700 mb-6">{blogPosts[0].excerpt}</p>
               <button className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition-colors">
                 Read More
               </button>
@@ -281,6 +296,13 @@ const Blog: React.FC = () => {
         </motion.section>
       </main>
       <Footer />
+
+      {isFormOpen && (
+        <BlogPostForm
+          onClose={() => setIsFormOpen(false)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
     </div>
   );
 };
