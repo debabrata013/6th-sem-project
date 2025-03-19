@@ -1,5 +1,7 @@
 package com.linkmatrix.link_matrix_spring.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.linkmatrix.link_matrix_spring.Model.Blog;
 import com.linkmatrix.link_matrix_spring.Model.SignInRequest;
 import com.linkmatrix.link_matrix_spring.Model.User;
+import com.linkmatrix.link_matrix_spring.Repo.BlogRepository;
 import com.linkmatrix.link_matrix_spring.Repo.UserRepository;
 
 @Service
@@ -54,4 +58,45 @@ public class UserService {
             return ResponseEntity.status(500).body("Internal server error");
         }
     }
+
+    @Autowired
+    private BlogRepository blogRepository;
+
+    public List<Blog> show_blog() {
+       return blogRepository.findAll();
+    }
+
+    public ResponseEntity<String> saveBlog(Blog blog) {
+        // Ensure the date is set
+        if (blog.getDate() == null || blog.getDate().isEmpty()) {
+            blog.setDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        }
+        blogRepository.save(blog);
+      System.out.println("Blog saved: " + blog.getTitle());
+        return ResponseEntity.ok("Blog saved: " + blog.getTitle());
+    }
+    public ResponseEntity<String> likeBlog(String blogId) {
+        Optional<Blog> blogOpt = blogRepository.findById(blogId);
+        if (blogOpt.isPresent()) {
+            Blog blog = blogOpt.get();
+            blog.incrementLikes();
+            blogRepository.save(blog);
+            return ResponseEntity.ok("Blog liked successfully");
+        } else {
+            return ResponseEntity.status(404).body("Blog not found");
+        }
+    }
+
+    public ResponseEntity<String> addComment(String blogId, String comment) {
+        Optional<Blog> blogOpt = blogRepository.findById(blogId);
+        if (blogOpt.isPresent()) {
+            Blog blog = blogOpt.get();
+            blog.addComment(comment);
+            blogRepository.save(blog);
+            return ResponseEntity.ok("Comment added successfully");
+        } else {
+            return ResponseEntity.status(404).body("Blog not found");
+        }
+    }
+
 }
